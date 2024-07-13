@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
 import { vertexShader } from './vertexShader';
 import { fragmentShader } from './fragmentShader';
@@ -10,16 +9,6 @@ export class WaveGrid {
     this.clock = new THREE.Clock();
 
     this.init();
-  }
-
-  init() {
-    this.createScene();
-    this.createMesh();
-    this.createRenderer();
-    this.createCamera();
-    // this.createControls();
-    this.addListeners();
-    this.animate();
   }
 
   createScene() {
@@ -74,11 +63,6 @@ export class WaveGrid {
     this.updateGridScale();
   }
 
-  createControls() {
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.enableDamping = true;
-  }
-
   addListeners() {
     window.addEventListener('resize', this.onWindowResize.bind(this));
   }
@@ -111,7 +95,15 @@ export class WaveGrid {
   render() {
     const elapsedTime = this.clock.getElapsedTime();
     this.grid.material.uniforms.time.value = elapsedTime;
-    // this.controls.update();
     this.renderer.render(this.scene, this.camera);
+  }
+
+  init() {
+    this.createScene();
+    this.createMesh();
+    this.createRenderer();
+    this.createCamera();
+    this.addListeners();
+    this.animate();
   }
 }
