@@ -16,7 +16,7 @@ class Main {
     this.createMesh();
     this.createRenderer();
     this.createCamera();
-    this.createControls();
+    // this.createControls();
     this.addListeners();
   }
 
@@ -244,7 +244,7 @@ class Main {
   render() {
     const elapsedTime = this.clock.getElapsedTime();
     this.grid.material.uniforms.time.value = elapsedTime;
-    this.controls.update();
+    // this.controls.update();
     this.renderer.render(this.scene, this.camera);
   }
 }
