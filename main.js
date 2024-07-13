@@ -15,7 +15,7 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // Objects
-const geometry = new THREE.PlaneGeometry(2, 1, 100, 30);
+const geometry = new THREE.PlaneGeometry(2, 1, 80, 40);
 
 // Materials
 const material = new THREE.ShaderMaterial({
@@ -23,11 +23,11 @@ const material = new THREE.ShaderMaterial({
     time: { value: 1.0 },
     resolution: { value: new THREE.Vector2() },
     gridSize: { value: 30.0 },
-    lineWidth: { value: 0.05 },
-    edgeFade: { value: 0.16 },
-    topFade: { value: 0.5 },
-    strength: { value: 0.1 },
-    speed: { value: 1.0 },
+    lineWidth: { value: 0.015 },
+    edgeFade: { value: 0.2 },
+    topFade: { value: 0.9 },
+    strength: { value: 0.6 },
+    speed: { value: 0.5 },
   },
   transparent: true,
   side: THREE.DoubleSide,
@@ -174,7 +174,8 @@ const material = new THREE.ShaderMaterial({
 // Mesh
 const grid = new THREE.Mesh(geometry, material);
 scene.add(grid);
-grid.rotation.x = -1;
+grid.rotation.x = -1.1;
+grid.position.z = -4;
 
 /**
  * Sizes
@@ -198,6 +199,10 @@ window.addEventListener('resize', () => {
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
 
+  fovY = camera.position.z * Math.tan((camera.fov * Math.PI / 180));
+  grid.scale.x = fovY;
+  grid.scale.y = fovY;
+
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -219,6 +224,10 @@ camera.position.x = 0;
 camera.position.y = 0;
 camera.position.z = 2;
 scene.add(camera);
+
+let fovY = camera.position.z * Math.tan((camera.fov * Math.PI / 180));
+grid.scale.x = fovY;
+grid.scale.y = fovY;
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
@@ -247,7 +256,7 @@ gui
 gui
   .add(material.uniforms.strength, 'value')
   .min(0)
-  .max(0.3)
+  .max(1)
   .step(0.01)
   .name('Strength');
 
