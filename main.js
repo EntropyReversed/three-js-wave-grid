@@ -24,7 +24,7 @@ const material = new THREE.ShaderMaterial({
     resolution: { value: new THREE.Vector2() },
     gridSize: { value: 30.0 },
     lineWidth: { value: 0.05 },
-    edgeFade: { value: 0.1 },
+    edgeFade: { value: 0.16 },
     topFade: { value: 0.5 },
     strength: { value: 0.1 },
     speed: { value: 1.0 },
@@ -33,6 +33,7 @@ const material = new THREE.ShaderMaterial({
   side: THREE.DoubleSide,
   vertexShader: `
     varying vec2 vUv;
+    varying float vZ;
 
     uniform float time;
     uniform float strength;
@@ -120,6 +121,7 @@ const material = new THREE.ShaderMaterial({
       // Apply noise to the z-coordinate of the vertex position
       float noise = snoise(vec3(pos.x * 2.0, pos.y * 2.0, time * 0.2 * speed));
       pos.z += noise * strength;
+      vZ = pos.z;
     
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }
@@ -133,6 +135,7 @@ const material = new THREE.ShaderMaterial({
     uniform float topFade;
 
     varying vec2 vUv;
+    varying float vZ;
 
     float saturate(float x) {
       return clamp(x, 0.0, 1.0);
@@ -161,7 +164,7 @@ const material = new THREE.ShaderMaterial({
       fade *= smoothstep(0.0, edgeFade, 1.0 - vUv.x); // Right edge fade
       fade *= smoothstep(0.0, edgeFade, vUv.y);      // Bottom edge fade
       fade *= smoothstep(0.0, topFade, 1.0 - vUv.y); // Top edge fade
-  
+
       vec3 color = mix(vec3(0.11), vec3(1.0), grid);
       gl_FragColor = vec4(color, fade);
     }
@@ -275,6 +278,13 @@ gui
   .max(1)
   .step(0.01)
   .name('Top Fade');
+
+gui
+  .add(grid.rotation, 'x')
+  .min(-1.5)
+  .max(0)
+  .step(0.01)
+  .name('Rotation');
 
 /**
  * Animate
