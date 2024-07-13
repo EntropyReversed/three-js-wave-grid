@@ -47,7 +47,7 @@ export class WaveGrid {
 
     this.grid = new THREE.Mesh(geometry, material);
     this.grid.rotation.x = -1.1;
-    this.grid.position.z = -4;
+    this.grid.position.z = -3.5;
     this.scene.add(this.grid);
 
     this.gui.add(material.uniforms.gridSize, 'value').min(5).max(40).step(1).name('Grid Size');
@@ -90,8 +90,8 @@ export class WaveGrid {
 
   updateGridScale() {
     const fovY = this.camera.position.z * Math.tan((this.camera.fov * Math.PI / 180));
-    this.grid.scale.x = fovY;
-    this.grid.scale.y = fovY;
+    this.grid.scale.x = fovY * 0.8;
+    this.grid.scale.y = fovY * 0.8;
   }
 
   onWindowResize() {
