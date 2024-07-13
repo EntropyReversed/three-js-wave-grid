@@ -5,6 +5,7 @@ varying float vZ;
 uniform float time;
 uniform float strength;
 uniform float speed;
+uniform float noiseOffset;
 
 // GLSL Simplex Noise function
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -86,7 +87,7 @@ void main() {
   vec3 pos = position;
 
   // Apply noise to the z-coordinate of the vertex position
-  float noise = snoise(vec3(pos.x * 2.0, pos.y * 2.0, time * 0.2 * speed));
+  float noise = snoise(vec3(pos.x * 2.0, pos.y * 2.0 + noiseOffset, time * 0.2 * speed));
   pos.z += noise * strength;
   vZ = pos.z;
 

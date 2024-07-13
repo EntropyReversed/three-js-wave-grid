@@ -7,6 +7,8 @@ export class WaveGrid {
   constructor() {
     this.gui = new dat.GUI();
     this.clock = new THREE.Clock();
+    this.noiseOffset = 0.0;
+    this.targetNoiseOffset = 0.0;
 
     this.init();
   }
@@ -27,6 +29,7 @@ export class WaveGrid {
         topFade: { value: 0.9 },
         strength: { value: 0.6 },
         speed: { value: 0.5 },
+        noiseOffset: { value: 0.0 }
       },
       transparent: true,
       side: THREE.DoubleSide,
@@ -65,6 +68,15 @@ export class WaveGrid {
 
   addListeners() {
     window.addEventListener('resize', this.onWindowResize.bind(this));
+    window.addEventListener('wheel', this.onWheel.bind(this));
+  }
+
+  onWheel(event) {
+    this.targetNoiseOffset += event.deltaY * 0.001;
+  }
+
+  lerp(start, end, t) {
+    return start * (1 - t) + end * t;
   }
 
   updateResolution() {
@@ -95,6 +107,8 @@ export class WaveGrid {
   render() {
     const elapsedTime = this.clock.getElapsedTime();
     this.grid.material.uniforms.time.value = elapsedTime;
+    this.noiseOffset = this.lerp(this.noiseOffset, this.targetNoiseOffset, 0.1);
+    this.grid.material.uniforms.noiseOffset.value = this.noiseOffset;
     this.renderer.render(this.scene, this.camera);
   }
 
