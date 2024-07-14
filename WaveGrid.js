@@ -23,7 +23,7 @@ export class WaveGrid {
       uniforms: {
         time: { value: 1.0 },
         resolution: { value: new THREE.Vector2() },
-        gridSize: { value: 30.0 },
+        gridSize: { value: 50.0 },
         lineWidth: { value: 0.015 },
         edgeFade: { value: 0.2 },
         topFade: { value: 0.9 },
@@ -43,7 +43,7 @@ export class WaveGrid {
     this.grid.position.z = -3.5;
     this.scene.add(this.grid);
 
-    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(40).step(1).name('Grid Size');
+    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(100).step(1).name('Grid Size');
     this.gui.add(material.uniforms.strength, 'value').min(0).max(1).step(0.01).name('Strength');
     this.gui.add(material.uniforms.speed, 'value').min(0).max(4).step(0.01).name('Speed');
     this.gui.add(material.uniforms.noiseScale, 'value').min(0).max(2).step(0.01).name('Noise Scale');
