@@ -18,7 +18,7 @@ export class WaveGrid {
   }
 
   createMesh() {
-    const geometry = new THREE.PlaneGeometry(2, 1, 80, 40);
+    const geometry = new THREE.PlaneGeometry(2, 1, 100, 50);
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 1.0 },
@@ -29,7 +29,8 @@ export class WaveGrid {
         topFade: { value: 0.9 },
         strength: { value: 0.6 },
         speed: { value: 0.5 },
-        noiseOffset: { value: 0.0 }
+        noiseOffset: { value: 0.0 },
+        noiseScale: { value: 1.0 }
       },
       transparent: true,
       side: THREE.DoubleSide,
@@ -45,6 +46,7 @@ export class WaveGrid {
     this.gui.add(material.uniforms.gridSize, 'value').min(5).max(40).step(1).name('Grid Size');
     this.gui.add(material.uniforms.strength, 'value').min(0).max(1).step(0.01).name('Strength');
     this.gui.add(material.uniforms.speed, 'value').min(0).max(4).step(0.01).name('Speed');
+    this.gui.add(material.uniforms.noiseScale, 'value').min(0).max(2).step(0.01).name('Noise Scale');
     this.gui.add(material.uniforms.lineWidth, 'value').min(0.001).max(0.1).step(0.001).name('Line Width');
     this.gui.add(material.uniforms.edgeFade, 'value').min(0).max(0.5).step(0.01).name('Edge Fade');
     this.gui.add(material.uniforms.topFade, 'value').min(0).max(1).step(0.01).name('Top Fade');

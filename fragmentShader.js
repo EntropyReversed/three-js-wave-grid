@@ -6,7 +6,6 @@ uniform float edgeFade;
 uniform float topFade;
 
 varying vec2 vUv;
-varying float vZ;
 
 float saturate(float x) {
   return clamp(x, 0.0, 1.0);

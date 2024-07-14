@@ -1,11 +1,11 @@
 export const vertexShader = `
 varying vec2 vUv;
-varying float vZ;
 
 uniform float time;
 uniform float strength;
 uniform float speed;
 uniform float noiseOffset;
+uniform float noiseScale;
 
 // GLSL Simplex Noise function
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -87,9 +87,8 @@ void main() {
   vec3 pos = position;
 
   // Apply noise to the z-coordinate of the vertex position
-  float noise = snoise(vec3(pos.x * 2.0, pos.y * 2.0 + noiseOffset, time * 0.2 * speed));
+  float noise = snoise(vec3(pos.x * 2.0 * noiseScale, pos.y * 2.0 * noiseScale + noiseOffset, time * 0.2 * speed));
   pos.z += noise * strength;
-  vZ = pos.z;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
