@@ -85,9 +85,9 @@ float snoise(vec3 v)
 void main() {
   vUv = uv;
   vec3 pos = position;
+  float speedTime = time * 0.2 * speed;
 
-  // Apply noise to the z-coordinate of the vertex position
-  float noise = snoise(vec3(pos.x * 2.0 * noiseScale, pos.y * 2.0 * noiseScale + noiseOffset, time * 0.2 * speed));
+  float noise = snoise(vec3(pos.x * 2.0 * noiseScale, pos.y * 2.0 * noiseScale + (noiseOffset + speedTime), speedTime));
   pos.z += noise * strength;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
