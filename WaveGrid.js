@@ -18,7 +18,7 @@ export class WaveGrid {
   }
 
   createMesh() {
-    const geometry = new THREE.PlaneGeometry(2, 1, 100, 50);
+    const geometry = new THREE.PlaneGeometry(2, 1, 120, 60);
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0.0 },
