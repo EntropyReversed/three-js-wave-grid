@@ -43,7 +43,7 @@ export class WaveGrid {
     this.grid.position.z = -3.5;
     this.scene.add(this.grid);
 
-    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(120).step(1).name('Grid Size');
+    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(200).step(1).name('Grid Size');
     this.gui.add(material.uniforms.strength, 'value').min(0).max(2).step(0.01).name('Strength');
     this.gui.add(material.uniforms.speed, 'value').min(0).max(4).step(0.01).name('Speed');
     this.gui.add(material.uniforms.noiseScale, 'value').min(0).max(2).step(0.01).name('Noise Scale');
