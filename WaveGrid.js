@@ -21,16 +21,16 @@ export class WaveGrid {
     const geometry = new THREE.PlaneGeometry(2, 1, 100, 50);
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        time: { value: 1.0 },
+        time: { value: 0.0 },
         resolution: { value: new THREE.Vector2() },
-        gridSize: { value: 50.0 },
-        lineWidth: { value: 0.015 },
+        gridSize: { value: 90.0 },
+        lineWidth: { value: 0.03 },
         edgeFade: { value: 0.2 },
-        topFade: { value: 0.9 },
-        strength: { value: 0.6 },
+        topFade: { value: 0.7 },
+        strength: { value: 0.8 },
         speed: { value: 0.5 },
         noiseOffset: { value: 0.0 },
-        noiseScale: { value: 1.0 }
+        noiseScale: { value: 1.3 }
       },
       transparent: true,
       side: THREE.DoubleSide,
@@ -39,12 +39,12 @@ export class WaveGrid {
     });
 
     this.grid = new THREE.Mesh(geometry, material);
-    this.grid.rotation.x = -1.1;
+    this.grid.rotation.x = -0.8;
     this.grid.position.z = -3.5;
     this.scene.add(this.grid);
 
-    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(100).step(1).name('Grid Size');
-    this.gui.add(material.uniforms.strength, 'value').min(0).max(1).step(0.01).name('Strength');
+    this.gui.add(material.uniforms.gridSize, 'value').min(5).max(120).step(1).name('Grid Size');
+    this.gui.add(material.uniforms.strength, 'value').min(0).max(2).step(0.01).name('Strength');
     this.gui.add(material.uniforms.speed, 'value').min(0).max(4).step(0.01).name('Speed');
     this.gui.add(material.uniforms.noiseScale, 'value').min(0).max(2).step(0.01).name('Noise Scale');
     this.gui.add(material.uniforms.lineWidth, 'value').min(0.001).max(0.1).step(0.001).name('Line Width');
